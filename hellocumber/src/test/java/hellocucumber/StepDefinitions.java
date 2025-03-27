@@ -27,36 +27,34 @@ public class StepDefinitions {
 
    private class IsItFriday {
         public String isItFriday(String today) {
-            String message = "";
-            if(today.equals("Sunday")){
-                message = "Nope";
+            if(null == today) {
+                return "Nope";
             }
-
-            if(today.equals("Friday")) {
-                message =  "TGIF";
+            else switch (today) {
+                case "Friday":
+                    return "TGIF";
+                case "Monday":
+                    return "Sadly";
+                default:
+                    return "Nope";
             }
-            return message;
     }
     
    } 
 
-   @When("I ask wether it's Friday yet")
-   public void i_ask_wether_it_s_friday_yet() {
+
+    @Given("today is {string}")
+    public void today_is(String today) {
+        // Write code here that turns the phrase above into concrete actions
+        this.today = today;
+    }
+
+    @When("I ask whether it's Friday yet")
+    public void i_ask_wether_it_s_friday_yet() {
        // Write code here that turns the phrase above into concrete actions
        IsItFriday iif = new IsItFriday();
        actualAnswer = iif.isItFriday(today);
    }
-
-    @Given("today is Sunday")
-    public void today_is_sunday() {
-        // Write code here that turns the phrase above into concrete actions
-        today = "Sunday";
-    }
-
-    @Given("today is Friday")
-    public void today_is_friday() {
-        today = "Friday";
-    }
 
     
     @Then("I should be told {string}")
